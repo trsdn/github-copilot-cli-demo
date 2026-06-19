@@ -30,13 +30,22 @@
                 <Border x:Name="DropZone" AllowDrop="True" DragOver="DropZone_DragOver" Drop="DropZone_Drop" BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}" BorderThickness="2" CornerRadius="12" Padding="24" MinHeight="220" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
                     <StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock Text="Drop invoice PDF, TXT, or JSON" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" />
-                        <TextBlock Text="Regex baseline shows the old, brittle feature. This is what the Copilot SDK upgrade will replace." TextAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                        <TextBlock Text="Regex baseline shows the old feature. SDK mode shows the AI upgrade. Fixture mode is the recovery path." TextAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
                         <Button Content="Load sample invoice" Click="LoadSample_Click" HorizontalAlignment="Center" />
                     </StackPanel>
                 </Border>
 
                 <StackPanel Spacing="10">
-                    <InfoBar x:Name="StatusInfo" IsOpen="True" Severity="Informational" Title="Ready" Message="Regex baseline is the only provider. The live build adds the Copilot SDK path." />
+                    <TextBlock Text="Provider" FontWeight="SemiBold" />
+                    <ComboBox x:Name="ProviderCombo" SelectedIndex="0" SelectionChanged="ProviderCombo_SelectionChanged">
+                        <ComboBoxItem Content="Legacy regex baseline" />
+                        <ComboBoxItem Content="Deterministic fixture mode" />
+                        <ComboBoxItem Content="Copilot SDK live" />
+                    </ComboBox>
+                    <TextBlock Text="Preferred model" FontWeight="SemiBold" />
+                    <TextBox x:Name="ModelBox" Text="default" />
+                    <Button x:Name="WarmupButton" Content="Warm up Copilot SDK" Click="WarmupButton_Click" />
+                    <InfoBar x:Name="StatusInfo" IsOpen="True" Severity="Informational" Title="Ready" Message="Start with regex baseline, then switch to Copilot SDK live to show the enhancement." />
                 </StackPanel>
             </StackPanel>
 
@@ -65,6 +74,6 @@
             </Grid>
         </Grid>
 
-        <TextBlock Grid.Row="2" Text="Tip: this is the brittle regex baseline. Use Copilot CLI to build the Copilot SDK upgrade live." Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        <TextBlock Grid.Row="2" Text="Tip: demo the diff from regex baseline to SDK live. Use deterministic fixture mode only as the recovery lane." Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
     </Grid>
 </Page>
