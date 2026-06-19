@@ -1,0 +1,18 @@
+CONTOSO OFFICE SUPPLIES
+Invoice: INV-2026-0619
+Invoice Date: 2026-06-19
+Due Date: 2026-07-19
+PO: PO-77841
+Bill To: Northwind Procurement Lab, 88 Market Street, Seattle WA 98101
+
+Line Items:
+- Ergonomic keyboard set, qty 12, unit 89.50, amount 1074.00
+- Docking station USB-C, qty 8, unit 129.00, amount 1032.00
+- Recycled paper case, qty 20, unit 42.75, amount 855.00
+
+Subtotal: 2961.00
+Tax: 251.69
+Shipping: 48.00
+Total: 3260.69 USD
+Payment Terms: Net 30
+Payment Reference: ACH-CTSO-0619

@@ -1,0 +1,18 @@
+{
+  "name": "copilot-sdk-invoice-demo",
+  "build": { "dockerfile": "Dockerfile" },
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-dotnettools.csharp", "ms-vscode.powershell"]
+    }
+  }
+}{
+  "name": "copilot-sdk-invoice-demo",
+  "build": { "dockerfile": "Dockerfile" },
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-dotnettools.csharp", "ms-vscode.powershell"]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "InvoiceDropper.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "InvoiceDropper.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

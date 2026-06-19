@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="InvoiceDropper_WinUI.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:InvoiceDropper_WinUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="24" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Invoice Dropper" FontSize="30" FontWeight="SemiBold" />
+            <TextBlock Text="Demo story: start with brittle regex extraction, then enhance the feature through the Copilot SDK bridge." Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,20,0,16" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.05*" />
+                <ColumnDefinition Width="1.4*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Spacing="16">
+                <Border x:Name="DropZone" AllowDrop="True" DragOver="DropZone_DragOver" Drop="DropZone_Drop" BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}" BorderThickness="2" CornerRadius="12" Padding="24" MinHeight="220" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="Drop invoice PDF, TXT, or JSON" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                        <TextBlock Text="Regex baseline shows the old feature. SDK mode shows the AI upgrade. Fixture mode is the recovery path." TextAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                        <Button Content="Load sample invoice" Click="LoadSample_Click" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Provider" FontWeight="SemiBold" />
+                    <ComboBox x:Name="ProviderCombo" SelectedIndex="0" SelectionChanged="ProviderCombo_SelectionChanged">
+                        <ComboBoxItem Content="Legacy regex baseline" />
+                        <ComboBoxItem Content="Deterministic fixture mode" />
+                        <ComboBoxItem Content="Copilot SDK live" />
+                    </ComboBox>
+                    <TextBlock Text="Preferred model" FontWeight="SemiBold" />
+                    <TextBox x:Name="ModelBox" Text="default" />
+                    <Button x:Name="WarmupButton" Content="Warm up Copilot SDK" Click="WarmupButton_Click" />
+                    <InfoBar x:Name="StatusInfo" IsOpen="True" Severity="Informational" Title="Ready" Message="Start with regex baseline, then switch to Copilot SDK live to show the enhancement." />
+                </StackPanel>
+            </StackPanel>
+
+            <Grid Grid.Column="1" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1.1*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button x:Name="CopyButton" Content="Copy result" Click="CopyButton_Click" IsEnabled="False" />
+                    <TextBlock x:Name="FileLabel" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="No invoice loaded" />
+                </StackPanel>
+
+                <ListView x:Name="FieldsList" Grid.Row="1" Header="Extracted fields" />
+
+                <Grid Grid.Row="2" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Raw JSON / session log" FontWeight="SemiBold" />
+                    <TextBox x:Name="RawJsonBox" Grid.Row="1" AcceptsReturn="True" TextWrapping="NoWrap" FontFamily="Consolas" IsReadOnly="True" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <TextBlock Grid.Row="2" Text="Tip: demo the diff from regex baseline to SDK live. Use deterministic fixture mode only as the recovery lane." Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+    </Grid>
+</Page>

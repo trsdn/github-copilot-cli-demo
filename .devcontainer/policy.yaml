@@ -1,0 +1,18 @@
+allowed_paths:
+  - /workspaces/github-copilot-cli-demo
+denied_commands:
+  - rm -rf /
+  - format
+  - shutdown
+  - restart-computer
+notes:
+  - Demo policy placeholder for explaining allow-all risk and containment.workspace:
+  allowedWriteRoots:
+    - /workspace
+agent:
+  denyCommands:
+    - rm -rf /
+    - format
+    - diskpart
+data:
+  allowedSamplesOnly: true

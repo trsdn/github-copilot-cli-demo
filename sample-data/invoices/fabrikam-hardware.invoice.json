@@ -1,0 +1,39 @@
+{
+  "invoiceNumber": "FAB-HW-88302",
+  "vendor": {
+    "name": "Fabrikam Hardware Depot",
+    "line1": "55 Industrial Way",
+    "city": "Portland",
+    "region": "OR",
+    "postalCode": "97205",
+    "country": "USA"
+  },
+  "customer": {
+    "name": "Contoso Facilities Group",
+    "line1": "410 Cedar Avenue",
+    "city": "Redmond",
+    "region": "WA",
+    "postalCode": "98052",
+    "country": "USA"
+  },
+  "invoiceDate": "2026-06-02",
+  "dueDate": "2026-07-02",
+  "purchaseOrderNumber": "PO-FAC-9021",
+  "lineItems": [
+    { "description": "Conference room camera", "quantity": 5, "unitPrice": 349.99, "amount": 1749.95, "sku": "CAM-ROOM" },
+    { "description": "Wall mount kit", "quantity": 5, "unitPrice": 39.0, "amount": 195.0, "sku": "MNT-WALL" },
+    { "description": "Installation cable bundle", "quantity": 5, "unitPrice": 24.5, "amount": 122.5, "sku": "CBL-BNDL" }
+  ],
+  "subtotal": 2067.45,
+  "tax": 175.73,
+  "shipping": 65.0,
+  "total": 2308.18,
+  "currency": "USD",
+  "paymentTerms": "Net 30",
+  "paymentReference": "CARD-FAB-88302",
+  "confidence": 0.95,
+  "provider": "fixture",
+  "model": "fixture",
+  "sourceFileName": "fabrikam-hardware.invoice.json",
+  "elapsed": 0
+}

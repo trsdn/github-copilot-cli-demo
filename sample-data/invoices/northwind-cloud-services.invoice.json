@@ -1,0 +1,38 @@
+{
+  "invoiceNumber": "NCS-10488",
+  "vendor": {
+    "name": "Northwind Cloud Services",
+    "line1": "120 Lake Union Parkway",
+    "city": "Seattle",
+    "region": "WA",
+    "postalCode": "98109",
+    "country": "USA"
+  },
+  "customer": {
+    "name": "Fabrikam Finance Ops",
+    "line1": "700 Finance Plaza",
+    "city": "Bellevue",
+    "region": "WA",
+    "postalCode": "98004",
+    "country": "USA"
+  },
+  "invoiceDate": "2026-06-10",
+  "dueDate": "2026-07-10",
+  "purchaseOrderNumber": "PO-CLD-2401",
+  "lineItems": [
+    { "description": "Invoice routing workflow pilot", "quantity": 1, "unitPrice": 4250.0, "amount": 4250.0, "sku": "SVC-WFLOW" },
+    { "description": "Data extraction assessment", "quantity": 6, "unitPrice": 275.0, "amount": 1650.0, "sku": "SVC-EXT" }
+  ],
+  "subtotal": 5900.0,
+  "tax": 501.5,
+  "shipping": 0.0,
+  "total": 6401.5,
+  "currency": "USD",
+  "paymentTerms": "Net 30",
+  "paymentReference": "WIRE-NCS-10488",
+  "confidence": 0.94,
+  "provider": "fixture",
+  "model": "fixture",
+  "sourceFileName": "northwind-cloud-services.invoice.json",
+  "elapsed": 0
+}

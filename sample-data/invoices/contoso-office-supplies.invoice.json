@@ -1,0 +1,39 @@
+{
+  "invoiceNumber": "INV-2026-0619",
+  "vendor": {
+    "name": "Contoso Office Supplies",
+    "line1": "410 Cedar Avenue",
+    "city": "Redmond",
+    "region": "WA",
+    "postalCode": "98052",
+    "country": "USA"
+  },
+  "customer": {
+    "name": "Northwind Procurement Lab",
+    "line1": "88 Market Street",
+    "city": "Seattle",
+    "region": "WA",
+    "postalCode": "98101",
+    "country": "USA"
+  },
+  "invoiceDate": "2026-06-19",
+  "dueDate": "2026-07-19",
+  "purchaseOrderNumber": "PO-77841",
+  "lineItems": [
+    { "description": "Ergonomic keyboard set", "quantity": 12, "unitPrice": 89.5, "amount": 1074.0, "sku": "KEY-ERG-12" },
+    { "description": "Docking station USB-C", "quantity": 8, "unitPrice": 129.0, "amount": 1032.0, "sku": "DOCK-USBC" },
+    { "description": "Recycled paper case", "quantity": 20, "unitPrice": 42.75, "amount": 855.0, "sku": "PAPER-REC" }
+  ],
+  "subtotal": 2961.0,
+  "tax": 251.69,
+  "shipping": 48.0,
+  "total": 3260.69,
+  "currency": "USD",
+  "paymentTerms": "Net 30",
+  "paymentReference": "ACH-CTSO-0619",
+  "confidence": 0.97,
+  "provider": "fixture",
+  "model": "fixture",
+  "sourceFileName": "contoso-office-supplies.invoice.json",
+  "elapsed": 0
+}

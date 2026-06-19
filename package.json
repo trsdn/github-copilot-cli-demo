@@ -1,0 +1,13 @@
+{
+  "name": "github-copilot-cli-sdk-invoice-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "demo:visuals": "node -e \"console.log('Open demo-visuals/index.html in your browser')\"",
+    "demo:sdk-install": "npm install --prefix tools/copilot-sdk-bridge",
+    "demo:sdk-bridge": "npm run bridge --prefix tools/copilot-sdk-bridge",
+    "demo:sdk-preflight": "npm run preflight --prefix tools/copilot-sdk-bridge",
+    "demo:app": "dotnet run --project src/InvoiceDropper.WinUI/InvoiceDropper.WinUI.csproj",
+    "test": "dotnet test tests/InvoiceDropper.Core.Tests/InvoiceDropper.Core.Tests.csproj && npm test --prefix tools/copilot-sdk-bridge"
+  }
+}
