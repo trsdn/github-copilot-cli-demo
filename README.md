@@ -8,12 +8,16 @@ The demo story is:
 Existing regex/JSON extractor -> Copilot CLI enhancement workflow -> native app feature backed by GitHub Copilot SDK
 ```
 
+This branch (`live-build-start`) ships **without** the Copilot SDK provider — it was
+removed on purpose. Rebuilding that SDK extraction path live with Copilot CLI is the demo.
+The app starts with just the brittle regex baseline and a deterministic fixture fallback.
+
 ## What To Show
 
 - Start with `Legacy regex baseline` in the WinUI app.
 - Show why the implementation is brittle.
 - Use Copilot CLI to plan and grill the enhancement.
-- Switch to `Copilot SDK live` to show the app integration path.
+- Rebuild the `Copilot SDK live` provider on stage and wire it to the bridge.
 - Keep `Deterministic fixture mode` as the reliable recovery lane.
 
 ## Quick Start

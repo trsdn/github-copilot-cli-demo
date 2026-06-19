@@ -4,34 +4,50 @@ A 45-minute demo package for GitHub Copilot CLI and the GitHub Copilot SDK. A na
 WinUI 3 app extracts structured fields from synthetic invoices and copies the result to
 the clipboard. All invoice data is fictional.
 
+**This branch (`live-build-start`) is the demo's starting point: the Copilot SDK provider
+has been deliberately removed.** The app ships with only the brittle regex baseline and a
+deterministic fixture fallback. Rebuilding the SDK extraction path live — with Copilot CLI
+driving the work — is the point of the demo. The Node SDK bridge under
+`tools/copilot-sdk-bridge` is preserved as the wiring target the live build connects to.
+
 ## Architecture
 
-The runtime is a chain that crosses three language boundaries:
+The target runtime (what the live build reconstructs) is a chain that crosses three
+language boundaries:
 
 ```
 WinUI app -> C# provider -> local HTTP SDK bridge -> @github/copilot SDK -> Copilot session -> JSON -> clipboard
 ```
+
+Today the C# `CopilotSdkInvoiceExtractionProvider` and its `Copilot SDK live` combo entry
+are absent — they get reintroduced on stage.
 
 - **`src/InvoiceDropper.Core`** (net8.0 class library) — provider abstraction
   (`IInvoiceExtractionProvider`), the `InvoiceExtractionResult` record, and
   `InvoiceExtractionSchema` validation. No UI or WinUI dependencies.
 - **`src/InvoiceDropper.WinUI`** (net8.0-windows, WinUI 3 / Windows App SDK) — drag-and-drop
   UI. `MainPage.xaml.cs` is the composition root: it builds the providers and selects
-  between them via `ProviderCombo.SelectedIndex` (0 = mock, 1 = SDK live).
+  between them via `ProviderCombo.SelectedIndex` (0 = legacy regex baseline, 1 = mock
+  fixture; index 0 maps to the regex provider, anything else falls through to mock). The
+  live build adds a third entry for the SDK provider.
 - **`tools/copilot-sdk-bridge`** (Node, ESM, TypeScript via `tsx`) — local HTTP server on
   `127.0.0.1:48731` that wraps the `@github/copilot` SDK. Endpoints: `/health`, `/status`,
   `/preflight`, `/warmup`, `/extract`, `/shutdown`.
 - **`sample-data/invoices`** — deterministic fixtures. `*.invoice.json` files are the
   canonical extraction results; `.txt`/`.html` are the human-facing source documents.
 
-### Two extraction providers, with fallback
+### Extraction providers (current vs. live-build target)
 
-- `MockInvoiceExtractionProvider` ("Deterministic demo mode") reads a `*.invoice.json`
-  fixture directly. Always works offline; used for rehearsal.
-- `CopilotSdkInvoiceExtractionProvider` ("Copilot SDK live") POSTs to the bridge's
-  `/extract`. **It silently falls back to the mock provider on any exception or 10s
-  timeout** (see the `catch` in `ExtractAsync`). Preserve this resilience — the demo must
-  never hard-fail in front of an audience.
+- `LegacyRegexInvoiceExtractionProvider` ("Legacy regex baseline", combo index 0) is the
+  intentionally brittle starting feature. Only the perfectly-shaped
+  `contoso-office-supplies.txt` matches cleanly; other files yield blank/best-effort
+  results. This is what the demo improves.
+- `MockInvoiceExtractionProvider` ("Deterministic fixture mode", combo index 1) reads a
+  `*.invoice.json` fixture directly. Always works offline; the reliable recovery lane.
+- `CopilotSdkInvoiceExtractionProvider` ("Copilot SDK live") is **removed on this branch**
+  and rebuilt live. When reintroduced it POSTs to the bridge's `/extract` and should
+  **silently fall back to the mock provider on any exception or 10s timeout** — preserve
+  that resilience so the demo never hard-fails in front of an audience.
 - The bridge mirrors this: when `COPILOT_BRIDGE_MOCK=1` or no SDK session is warmed, it
   returns fixture data instead of calling the live model.
 

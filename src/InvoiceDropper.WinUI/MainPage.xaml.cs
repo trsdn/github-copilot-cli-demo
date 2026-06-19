@@ -20,7 +20,6 @@ public sealed partial class MainPage : Page
 {
     private readonly string _sampleRoot;
     private readonly LegacyRegexInvoiceExtractionProvider _regexProvider;
-    private readonly MockInvoiceExtractionProvider _mockProvider;
     private InvoiceExtractionResult? _lastResult;
 
     public MainPage()
@@ -28,7 +27,6 @@ public sealed partial class MainPage : Page
         InitializeComponent();
         _sampleRoot = FindSampleRoot();
         _regexProvider = new LegacyRegexInvoiceExtractionProvider();
-        _mockProvider = new MockInvoiceExtractionProvider(_sampleRoot);
     }
 
     private async void DropZone_Drop(object sender, DragEventArgs e)
@@ -55,45 +53,6 @@ public sealed partial class MainPage : Page
     {
         var samplePath = Path.Combine(_sampleRoot, "contoso-office-supplies.txt");
         await ExtractPathAsync(samplePath);
-    }
-
-    private async void WarmupButton_Click(object sender, RoutedEventArgs e)
-    {
-        SetStatus(InfoBarSeverity.Informational, "Copilot SDK warming up", "Calling the local bridge /warmup endpoint.");
-        try
-        {
-            using var client = new HttpClient { BaseAddress = new Uri("http://127.0.0.1:48731"), Timeout = TimeSpan.FromSeconds(15) };
-            var response = await client.PostAsJsonAsync("/warmup", new { preferredModel = ModelBox.Text });
-            var text = await response.Content.ReadAsStringAsync();
-            SetStatus(response.IsSuccessStatusCode ? InfoBarSeverity.Success : InfoBarSeverity.Warning, "SDK bridge response", text);
-            RawJsonBox.Text = text;
-        }
-        catch (Exception ex)
-        {
-            SetStatus(InfoBarSeverity.Warning, "SDK bridge unavailable", $"Fallback demo mode remains ready. {ex.Message}");
-        }
-    }
-
-    private void ProviderCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded)
-        {
-            return;
-        }
-
-        var title = ProviderCombo.SelectedIndex switch
-        {
-            0 => "Legacy regex baseline selected",
-            1 => "Deterministic fixture mode selected",
-            _ => "Copilot SDK live selected"
-        };
-        var message = ProviderCombo.SelectedIndex switch
-        {
-            0 => "Use this first to show the brittle feature Copilot CLI will improve.",
-            1 => "Use this only when you need a reliable recovery lane.",
-            _ => "Start or warm up the local SDK bridge before extraction."
-        };
-        SetStatus(InfoBarSeverity.Informational, title, message);
     }
 
     private async void CopyButton_Click(object sender, RoutedEventArgs e)
@@ -149,13 +108,8 @@ public sealed partial class MainPage : Page
 
         try
         {
-            var request = new InvoiceExtractionRequest(sourcePath, fileName, text, ModelBox.Text);
-            var provider = ProviderCombo.SelectedIndex switch
-            {
-                0 => (IInvoiceExtractionProvider)_regexProvider,
-                _ => _mockProvider
-            };
-            _lastResult = await provider.ExtractAsync(request);
+            var request = new InvoiceExtractionRequest(sourcePath, fileName, text, "default");
+            _lastResult = await _regexProvider.ExtractAsync(request);
             RenderResult(_lastResult);
             SetStatus(InfoBarSeverity.Success, _lastResult.Provider, $"Extracted invoice {_lastResult.InvoiceNumber} in {_lastResult.Elapsed.TotalMilliseconds:N0} ms.");
         }
