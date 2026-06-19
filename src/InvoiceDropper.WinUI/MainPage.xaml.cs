@@ -21,7 +21,6 @@ public sealed partial class MainPage : Page
     private readonly string _sampleRoot;
     private readonly LegacyRegexInvoiceExtractionProvider _regexProvider;
     private readonly MockInvoiceExtractionProvider _mockProvider;
-    private readonly CopilotSdkInvoiceExtractionProvider _sdkProvider;
     private InvoiceExtractionResult? _lastResult;
 
     public MainPage()
@@ -30,11 +29,6 @@ public sealed partial class MainPage : Page
         _sampleRoot = FindSampleRoot();
         _regexProvider = new LegacyRegexInvoiceExtractionProvider();
         _mockProvider = new MockInvoiceExtractionProvider(_sampleRoot);
-        _sdkProvider = new CopilotSdkInvoiceExtractionProvider(new HttpClient
-        {
-            BaseAddress = new Uri("http://127.0.0.1:48731"),
-            Timeout = TimeSpan.FromSeconds(10)
-        }, _mockProvider);
     }
 
     private async void DropZone_Drop(object sender, DragEventArgs e)
@@ -158,9 +152,8 @@ public sealed partial class MainPage : Page
             var request = new InvoiceExtractionRequest(sourcePath, fileName, text, ModelBox.Text);
             var provider = ProviderCombo.SelectedIndex switch
             {
-                0 => _regexProvider,
-                1 => _mockProvider,
-                _ => (IInvoiceExtractionProvider)_sdkProvider
+                0 => (IInvoiceExtractionProvider)_regexProvider,
+                _ => _mockProvider
             };
             _lastResult = await provider.ExtractAsync(request);
             RenderResult(_lastResult);

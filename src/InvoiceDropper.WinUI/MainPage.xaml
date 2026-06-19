@@ -40,7 +40,6 @@
                     <ComboBox x:Name="ProviderCombo" SelectedIndex="0" SelectionChanged="ProviderCombo_SelectionChanged">
                         <ComboBoxItem Content="Legacy regex baseline" />
                         <ComboBoxItem Content="Deterministic fixture mode" />
-                        <ComboBoxItem Content="Copilot SDK live" />
                     </ComboBox>
                     <TextBlock Text="Preferred model" FontWeight="SemiBold" />
                     <TextBox x:Name="ModelBox" Text="default" />

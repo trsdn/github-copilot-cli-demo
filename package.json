@@ -7,7 +7,7 @@
     "demo:sdk-install": "npm install --prefix tools/copilot-sdk-bridge",
     "demo:sdk-bridge": "npm run bridge --prefix tools/copilot-sdk-bridge",
     "demo:sdk-preflight": "npm run preflight --prefix tools/copilot-sdk-bridge",
-    "demo:app": "dotnet run --project src/InvoiceDropper.WinUI/InvoiceDropper.WinUI.csproj",
+    "demo:app": "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/run-app.ps1",
     "test": "dotnet test tests/InvoiceDropper.Core.Tests/InvoiceDropper.Core.Tests.csproj && npm test --prefix tools/copilot-sdk-bridge"
   }
 }
