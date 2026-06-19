@@ -4,6 +4,21 @@
 
 Do not spend the session building a whole app from scratch. The app is just the demo object. The real demo is upgrading a brittle regex/JSON extraction feature into a Copilot SDK-backed AI feature using Copilot CLI as the development cockpit.
 
+## Reset Between Rehearsals
+
+To start the live build from a clean slate, snap the working tree back to the
+no-SDK baseline:
+
+```powershell
+git switch demo-no-sdk         # clean regex-only starting point
+git switch demo-sdk-live       # the finished SDK build (reference / recovery)
+git reset --hard demo-reset-no-sdk   # discard an in-progress build on the current branch
+```
+
+`demo-no-sdk` and the `demo-reset-no-sdk` tag both point at the clean baseline;
+`demo-sdk-live` holds the rebuilt SDK path if you need to fall back to a working
+version mid-demo. See the README "Reset / Toggle Demo State" section for details.
+
 ## 0-4 min: Open With The Existing Feature
 
 Run the WinUI app and select `Legacy regex baseline`. Load `contoso-office-supplies.txt`. Show that it works only because the text is perfectly shaped.

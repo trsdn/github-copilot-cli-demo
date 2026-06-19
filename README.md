@@ -31,6 +31,26 @@ npm run demo:app
 
 Open `demo-visuals/index.html` for the concept leave-behind.
 
+## Reset / Toggle Demo State
+
+Two branches and a tag let you flip between the clean starting point and the
+rebuilt SDK version without remembering commit hashes:
+
+| Ref | State |
+| --- | --- |
+| `demo-no-sdk` (branch) | Clean regex-only baseline, SDK provider removed |
+| `demo-sdk-live` (branch) | Rebuilt Copilot SDK extraction path |
+| `demo-reset-no-sdk` (tag) | Same commit as `demo-no-sdk`, used for hard resets |
+
+```powershell
+git switch demo-no-sdk         # rehearse from the clean starting point
+git switch demo-sdk-live       # jump to the live-built SDK version
+git reset --hard demo-reset-no-sdk   # discard a live build, snap back to baseline
+```
+
+Before resetting, make sure any work you want to keep is committed (the
+`demo-sdk-live` branch already points at the rebuilt version).
+
 ## Validation
 
 ```powershell
